@@ -19,16 +19,27 @@ public:
         //permutation of all combinarion
         string ans="";
         queue<string> que;
+        vector<int> freq(26);
+        for(auto x:s) freq[x-'a']++;
+        for(int i=0;i<26;i++){
+            if(freq[i]<k){
+                freq[i]=0;
+            }
+            else {
+                freq[i]/=k;
+            }
+        }
         que.push("");
         string curr="";
         string temp="";
         while(!que.empty()){
             curr=que.front(); que.pop();
-            for(char c='a';c<='z';c++){
+            for(int i=25;i>=0;i--){
+                char c = i+'a';
                 temp=curr+c;
                 if(isExits(temp,s,k)){
                     que.push(temp);
-                    if(ans.size()<=temp.size() || temp > ans){
+                    if(ans.size()<temp.size()){
                         ans = temp;
                     }
                 }
